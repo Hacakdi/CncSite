@@ -172,7 +172,6 @@ const translations = {
       text2: 'We are with you as a reliable business partner with projects in automotive, aviation, defense industry, medical and energy sectors.',
       points: [
         'European standard quality management system',
-        '10,000+ completed projects',
         'Expert engineering and design support',
         'Fast prototyping and serial production capacity'
       ],
