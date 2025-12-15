@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CNC Precision Manufacturing | Profesyonel CNC İmalat</title>
+    <meta name="description" content="Yüksek hassasiyetli CNC torna, freze, lazer kesim ve kalıp imalatı hizmetleri">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'cnc-dark': '#1a1a1a',
+                        'cnc-gray': '#2d2d2d',
+                        'cnc-blue': '#3b82f6',
+                        'cnc-orange': '#f97316',
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+
+        .text-gradient {
+            background: linear-gradient(to right, #3b82f6, #f97316);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 0.1; }
+            50% { opacity: 0.15; }
+        }
+
+        .animate-pulse-slow {
+            animation: pulse-slow 3s ease-in-out infinite;
+        }
+
+        .animate-pulse-slow-delay {
+            animation: pulse-slow 3s ease-in-out 1.5s infinite;
+        }
+    </style>
+</head>
+<body class="bg-cnc-dark text-gray-100">
+    <div id="app"></div>
+
+    <script type="module">
+        const { useState, useEffect, createElement: h } = React;
+
+        function App() {
+            const [isMenuOpen, setIsMenuOpen] = useState(false);
+            const [scrolled, setScrolled] = useState(false);
+            const [formData, setFormData] = useState({
+                name: '',
+                email: '',
+                phone: '',
+                message: ''
+            });
+            const [formStatus, setFormStatus] = useState('');
+
+            useEffect(() => {
+                const handleScroll = () => {
+                    setScrolled(window.scrollY > 50);
+                };
+                window.addEventListener('scroll', handleScroll);
+
+                // Initialize Lucide icons
+                lucide.createIcons();
+
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
+
+            useEffect(() => {
+                lucide.createIcons();
+            });
+
+            const handleInputChange = (e) => {
+                setFormData({
+                    ...formData,
+                    [e.target.name]: e.target.value
+                });
+            };
+
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                setFormStatus('Mesajınız gönderildi! En kısa sürede size dönüş yapacağız.');
+                setFormData({ name: '', email: '', phone: '', message: '' });
+                setTimeout(() => setFormStatus(''), 5000);
+            };
+
+            const scrollToSection = (sectionId) => {
+                const element = document.getElementById(sectionId);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                    setIsMenuOpen(false);
+                }
+            };
+
+            const services = [
+                {
+                    icon: 'settings',
+                    title: "CNC Torna",
+                    description: "Yüksek hassasiyetli torna işleme hizmetleri ile karmaşık geometrilerde üretim"
+                },
+                {
+                    icon: 'cpu',
+                    title: "CNC Freze",
+                    description: "3, 4 ve 5 eksen freze işleme teknolojisi ile kusursuz yüzey kalitesi"
+                },
+                {
+                    icon: 'zap',
+                    title: "Lazer Kesim",
+                    description: "Son teknoloji fiber lazer ile hassas kesim ve gravür işlemleri"
+                },
+                {
+                    icon: 'layers',
+                    title: "Kalıp İmalatı",
+                    description: "Enjeksiyon ve preslenmiş parça kalıpları tasarımı ve üretimi"
+                },
+                {
+                    icon: 'wrench',
+                    title: "Özel Parça Üretimi",
+                    description: "Prototipten seri üretime özel parça imalatı ve mühendislik desteği"
+                },
+                {
+                    icon: 'factory',
+                    title: "Seri Üretim",
+                    description: "Yüksek kapasiteli makine parkurumuz ile hızlı ve kaliteli seri üretim"
+                }
+            ];
+
+            const technologies = [
+                { name: "CNC Torna Merkezi", specs: "5 Eksen, Ø500mm" },
+                { name: "CNC Dik İşleme Merkezi", specs: "1000x600x500mm" },
+                { name: "Fiber Lazer Kesim", specs: "6kW, 3000x1500mm" },
+                { name: "EDM Tel Erozyon", specs: "±0.002mm Hassasiyet" },
+                { name: "CMM Ölçüm Cihazı", specs: "Zeiss Coordinate 700x1000mm" },
+                { name: "CNC Taşlama", specs: "Yüzey Taşlama Ra 0.2" }
+            ];
+
+            const projects = [
+                { id: 1, title: "Otomotiv Kalıp Parçası", category: "Kalıp" },
+                { id: 2, title: "Havacılık Komponenti", category: "Torna" },
+                { id: 3, title: "Medikal Cihaz Parçası", category: "Freze" },
+                { id: 4, title: "Savunma Sanayi Parça", category: "Lazer" },
+                { id: 5, title: "Enerji Sektörü Bileşen", category: "Özel" },
+                { id: 6, title: "İmalat Fikstürü", category: "Kalıp" }
+            ];
+
+            const features = [
+                { icon: 'shield', text: "ISO 9001:2015 Kalite Belgeli" },
+                { icon: 'award', text: "25+ Yıl Deneyim" },
+                { icon: 'target', text: "±0.005mm Hassasiyet" },
+                { icon: 'clock', text: "7/24 Üretim Kapasitesi" }
+            ];
+
+            const menuItems = [
+                { id: 'anasayfa', label: 'Ana Sayfa' },
+                { id: 'hakkimizda', label: 'Hakkımızda' },
+                { id: 'hizmetler', label: 'Hizmetler' },
+                { id: 'teknoloji', label: 'Teknoloji' },
+                { id: 'projeler', label: 'Projeler' },
+                { id: 'iletisim', label: 'İletişim' }
+            ];
+
+            return h('div', { className: 'min-h-screen bg-cnc-dark text-gray-100' },
+                // Navigation
+                h('nav', { className: `fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-cnc-dark/95 backdrop-blur-md shadow-lg' : 'bg-transparent'}` },
+                    h('div', { className: 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8' },
+                        h('div', { className: 'flex justify-between items-center h-20' },
+                            // Logo
+                            h('div', { className: 'flex items-center space-x-2' },
+                                h('i', { 'data-lucide': 'settings', className: 'w-8 h-8 text-cnc-blue' }),
+                                h('span', { className: 'text-2xl font-bold' },
+                                    'CNC',
+                                    h('span', { className: 'text-cnc-blue' }, 'PRO')
+                                )
+                            ),
+                            // Desktop Menu
+                            h('div', { className: 'hidden md:flex space-x-8' },
+                                ...menuItems.map(item =>
+                                    h('button', {
+                                        key: item.id,
+                                        onClick: () => scrollToSection(item.id),
+                                        className: 'text-gray-300 hover:text-cnc-blue transition-colors duration-200'
+                                    }, item.label)
+                                )
+                            ),
+                            // Mobile Menu Button
+                            h('button', {
+                                onClick: () => setIsMenuOpen(!isMenuOpen),
+                                className: 'md:hidden text-gray-300 hover:text-cnc-blue'
+                            },
+                                h('i', { 'data-lucide': isMenuOpen ? 'x' : 'menu', className: 'w-6 h-6' })
+                            )
+                        )
+                    ),
+                    // Mobile Menu
+                    isMenuOpen && h('div', { className: 'md:hidden bg-cnc-gray/95 backdrop-blur-md' },
+                        h('div', { className: 'px-4 py-4 space-y-3' },
+                            ...menuItems.map(item =>
+                                h('button', {
+                                    key: item.id,
+                                    onClick: () => scrollToSection(item.id),
+                                    className: 'block w-full text-left text-gray-300 hover:text-cnc-blue transition-colors duration-200 py-2'
+                                }, item.label)
+                            )
+                        )
+                    )
+                ),
+
+                // Hero Section
+                h('section', { id: 'anasayfa', className: 'relative min-h-screen flex items-center justify-center overflow-hidden' },
+                    h('div', { className: 'absolute inset-0 bg-gradient-to-br from-cnc-dark via-cnc-gray to-cnc-dark' }),
+                    h('div', { className: 'absolute inset-0 opacity-10' },
+                        h('div', { className: 'absolute top-20 left-10 w-72 h-72 bg-cnc-blue rounded-full filter blur-3xl animate-pulse-slow' }),
+                        h('div', { className: 'absolute bottom-20 right-10 w-96 h-96 bg-cnc-orange rounded-full filter blur-3xl animate-pulse-slow-delay' })
+                    ),
+                    h('div', { className: 'relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10' },
+                        h('h1', { className: 'text-5xl md:text-7xl font-bold mb-6 leading-tight' },
+                            'Hassasiyet ve ',
+                            h('span', { className: 'text-gradient' }, 'Teknoloji'),
+                            h('br'),
+                            'ile Üretim'
+                        ),
+                        h('p', { className: 'text-xl md:text-2xl text-gray-400 mb-8 max-w-3xl mx-auto' },
+                            'Modern CNC teknolojisi ile kalite standartlarını aşan, yüksek hassasiyetli parça üretimi'
+                        ),
+                        h('div', { className: 'flex flex-col sm:flex-row gap-4 justify-center items-center' },
+                            h('button', {
+                                onClick: () => scrollToSection('iletisim'),
+                                className: 'group px-8 py-4 bg-gradient-to-r from-cnc-blue to-blue-600 rounded-lg font-semibold text-lg hover:shadow-lg hover:shadow-cnc-blue/50 transition-all duration-300 flex items-center gap-2'
+                            },
+                                'Teklif Alın',
+                                h('i', { 'data-lucide': 'arrow-right', className: 'w-5 h-5' })
+                            ),
+                            h('button', {
+                                onClick: () => scrollToSection('hizmetler'),
+                                className: 'px-8 py-4 glass-effect rounded-lg font-semibold text-lg hover:bg-white/10 transition-all duration-300'
+                            }, 'Hizmetlerimiz')
+                        ),
+                        h('div', { className: 'mt-16 grid grid-cols-2 md:grid-cols-4 gap-6' },
+                            ...features.map((feature, index) =>
+                                h('div', { key: index, className: 'glass-effect rounded-lg p-4 hover:bg-white/10 transition-all duration-300' },
+                                    h('div', { className: 'text-cnc-blue mb-2 flex justify-center' },
+                                        h('i', { 'data-lucide': feature.icon, className: 'w-6 h-6' })
+                                    ),
+                                    h('p', { className: 'text-sm text-gray-300' }, feature.text)
+                                )
+                            )
+                        )
+                    )
+                ),
+
+                // About Section
+                h('section', { id: 'hakkimizda', className: 'py-20 bg-cnc-gray' },
+                    h('div', { className: 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8' },
+                        h('div', { className: 'grid md:grid-cols-2 gap-12 items-center' },
+                            h('div', null,
+                                h('h2', { className: 'text-4xl md:text-5xl font-bold mb-6' },
+                                    'Endüstride ',
+                                    h('span', { className: 'text-cnc-blue' }, 'Öncü'),
+                                    ' Çözümler'
+                                ),
+                                h('p', { className: 'text-gray-400 text-lg mb-6' },
+                                    '1998 yılından bu yana CNC imalat sektöründe faaliyet gösteren firmamız, son teknoloji ekipmanları ve uzman kadrosuyla müşterilerine en yüksek kalitede hizmet sunmaktadır.'
+                                ),
+                                h('p', { className: 'text-gray-400 text-lg mb-8' },
+                                    'Otomotiv, havacılık, savunma sanayi, medikal ve enerji sektörlerinde gerçekleştirdiğimiz projelerle güvenilir iş ortağınız olarak yanınızdayız.'
+                                ),
+                                h('div', { className: 'space-y-4' },
+                                    ...[
+                                        'Avrupa standartlarında kalite yönetim sistemi',
+                                        '10.000+ tamamlanmış proje',
+                                        'Uzman mühendislik ve tasarım desteği',
+                                        'Hızlı prototip ve seri üretim kapasitesi'
+                                    ].map((item, index) =>
+                                        h('div', { key: index, className: 'flex items-start gap-3' },
+                                            h('i', { 'data-lucide': 'check-circle', className: 'w-6 h-6 text-cnc-blue flex-shrink-0 mt-1' }),
+                                            h('span', { className: 'text-gray-300' }, item)
+                                        )
+                                    )
+                                )
+                            ),
+                            h('div', { className: 'grid grid-cols-2 gap-4' },
+                                ...([
+                                    { value: '25+', label: 'Yıl Deneyim', color: 'cnc-blue' },
+                                    { value: '50+', label: 'Uzman Personel', color: 'cnc-orange' },
+                                    { value: '10K+', label: 'Proje', color: 'cnc-blue' },
+                                    { value: '200+', label: 'Müşteri', color: 'cnc-orange' }
+                                ]).map((stat, index) =>
+                                    h('div', { key: index, className: 'glass-effect rounded-lg p-6 hover:bg-white/10 transition-all duration-300' },
+                                        h('div', { className: `text-4xl font-bold text-${stat.color} mb-2` }, stat.value),
+                                        h('div', { className: 'text-gray-400' }, stat.label)
+                                    )
+                                )
+                            )
+                        )
+                    )
+                ),
+
+                // Services Section
+                h('section', { id: 'hizmetler', className: 'py-20 bg-cnc-dark' },
+                    h('div', { className: 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8' },
+                        h('div', { className: 'text-center mb-16' },
+                            h('h2', { className: 'text-4xl md:text-5xl font-bold mb-4' },
+                                'Hizmet',
+                                h('span', { className: 'text-cnc-blue' }, 'lerimiz')
+                            ),
+                            h('p', { className: 'text-gray-400 text-lg max-w-2xl mx-auto' },
+                                'Modern teknoloji ve deneyimli kadromuzla geniş yelpazede CNC imalat hizmetleri sunuyoruz'
+                            )
+                        ),
+                        h('div', { className: 'grid md:grid-cols-2 lg:grid-cols-3 gap-8' },
+                            ...services.map((service, index) =>
+                                h('div', {
+                                    key: index,
+                                    className: 'group glass-effect rounded-xl p-8 hover:bg-white/10 transition-all duration-300 hover:scale-105 cursor-pointer'
+                                },
+                                    h('div', { className: 'text-cnc-blue mb-4 group-hover:scale-110 transition-transform duration-300' },
+                                        h('i', { 'data-lucide': service.icon, className: 'w-12 h-12' })
+                                    ),
+                                    h('h3', { className: 'text-2xl font-bold mb-3' }, service.title),
+                                    h('p', { className: 'text-gray-400 mb-4' }, service.description),
+                                    h('div', { className: 'flex items-center text-cnc-blue group-hover:gap-2 transition-all duration-300' },
+                                        h('span', { className: 'text-sm font-semibold' }, 'Detaylar'),
+                                        h('i', { 'data-lucide': 'chevron-right', className: 'w-4 h-4' })
+                                    )
+                                )
+                            )
+                        )
+                    )
+                ),
+
+                // Technology Section
+                h('section', { id: 'teknoloji', className: 'py-20 bg-cnc-gray' },
+                    h('div', { className: 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8' },
+                        h('div', { className: 'text-center mb-16' },
+                            h('h2', { className: 'text-4xl md:text-5xl font-bold mb-4' },
+                                'Makine ',
+                                h('span', { className: 'text-cnc-orange' }, 'Parkurumuz')
+                            ),
+                            h('p', { className: 'text-gray-400 text-lg max-w-2xl mx-auto' },
+                                'Son teknoloji CNC makinelerimiz ve ölçüm cihazlarımızla en hassas işleme garantisi'
+                            )
+                        ),
+                        h('div', { className: 'grid md:grid-cols-2 lg:grid-cols-3 gap-6' },
+                            ...technologies.map((tech, index) =>
+                                h('div', {
+                                    key: index,
+                                    className: 'glass-effect rounded-lg p-6 hover:bg-white/10 transition-all duration-300 hover:border-cnc-orange'
+                                },
+                                    h('div', { className: 'flex items-start justify-between mb-3' },
+                                        h('h3', { className: 'text-xl font-semibold' }, tech.name),
+                                        h('i', { 'data-lucide': 'factory', className: 'w-6 h-6 text-cnc-orange' })
+                                    ),
+                                    h('p', { className: 'text-gray-400 text-sm' }, tech.specs),
+                                    h('div', { className: 'mt-4 h-1 bg-gradient-to-r from-cnc-orange to-transparent rounded' })
+                                )
+                            )
+                        ),
+                        h('div', { className: 'mt-12 text-center' },
+                            h('div', { className: 'glass-effect rounded-lg p-8 inline-block' },
+                                h('p', { className: 'text-lg text-gray-300' },
+                                    h('span', { className: 'text-cnc-orange font-bold text-2xl' }, '5000m²'),
+                                    ' kapalı üretim alanı | ',
+                                    h('span', { className: 'text-cnc-blue font-bold text-2xl' }, '7/24'),
+                                    ' kesintisiz üretim'
+                                )
+                            )
+                        )
+                    )
+                ),
+
+                // Projects Section
+                h('section', { id: 'projeler', className: 'py-20 bg-cnc-dark' },
+                    h('div', { className: 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8' },
+                        h('div', { className: 'text-center mb-16' },
+                            h('h2', { className: 'text-4xl md:text-5xl font-bold mb-4' },
+                                'Referans ',
+                                h('span', { className: 'text-cnc-blue' }, 'Projelerimiz')
+                            ),
+                            h('p', { className: 'text-gray-400 text-lg max-w-2xl mx-auto' },
+                                'Farklı sektörlerde gerçekleştirdiğimiz başarılı projelerden örnekler'
+                            )
+                        ),
+                        h('div', { className: 'grid md:grid-cols-2 lg:grid-cols-3 gap-6' },
+                            ...projects.map((project) =>
+                                h('div', {
+                                    key: project.id,
+                                    className: 'group relative glass-effect rounded-xl overflow-hidden hover:bg-white/10 transition-all duration-300 cursor-pointer'
+                                },
+                                    h('div', { className: 'aspect-video bg-gradient-to-br from-cnc-gray to-cnc-dark flex items-center justify-center' },
+                                        h('i', { 'data-lucide': 'settings', className: 'w-20 h-20 text-cnc-blue/30 group-hover:text-cnc-blue/50 transition-colors duration-300' })
+                                    ),
+                                    h('div', { className: 'p-6' },
+                                        h('div', { className: 'text-xs text-cnc-orange font-semibold mb-2' }, project.category),
+                                        h('h3', { className: 'text-xl font-bold mb-2' }, project.title),
+                                        h('div', { className: 'flex items-center text-cnc-blue text-sm font-semibold group-hover:gap-2 transition-all duration-300' },
+                                            h('span', null, 'Proje Detayları'),
+                                            h('i', { 'data-lucide': 'chevron-right', className: 'w-4 h-4' })
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    )
+                ),
+
+                // Contact Section
+                h('section', { id: 'iletisim', className: 'py-20 bg-cnc-gray' },
+                    h('div', { className: 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8' },
+                        h('div', { className: 'text-center mb-16' },
+                            h('h2', { className: 'text-4xl md:text-5xl font-bold mb-4' },
+                                'Bize ',
+                                h('span', { className: 'text-cnc-blue' }, 'Ulaşın')
+                            ),
+                            h('p', { className: 'text-gray-400 text-lg max-w-2xl mx-auto' },
+                                'Projeleriniz için teklif almak veya detaylı bilgi için bizimle iletişime geçin'
+                            )
+                        ),
+                        h('div', { className: 'grid md:grid-cols-2 gap-12' },
+                            // Contact Form
+                            h('div', { className: 'glass-effect rounded-xl p-8' },
+                                h('h3', { className: 'text-2xl font-bold mb-6' }, 'Mesaj Gönderin'),
+                                h('form', { onSubmit: handleSubmit, className: 'space-y-6' },
+                                    h('div', null,
+                                        h('label', { htmlFor: 'name', className: 'block text-sm font-medium mb-2' }, 'Ad Soyad *'),
+                                        h('input', {
+                                            type: 'text',
+                                            id: 'name',
+                                            name: 'name',
+                                            value: formData.name,
+                                            onChange: handleInputChange,
+                                            required: true,
+                                            className: 'w-full px-4 py-3 bg-cnc-dark border border-gray-600 rounded-lg focus:outline-none focus:border-cnc-blue transition-colors text-white',
+                                            placeholder: 'Adınız ve soyadınız'
+                                        })
+                                    ),
+                                    h('div', null,
+                                        h('label', { htmlFor: 'email', className: 'block text-sm font-medium mb-2' }, 'E-posta *'),
+                                        h('input', {
+                                            type: 'email',
+                                            id: 'email',
+                                            name: 'email',
+                                            value: formData.email,
+                                            onChange: handleInputChange,
+                                            required: true,
+                                            className: 'w-full px-4 py-3 bg-cnc-dark border border-gray-600 rounded-lg focus:outline-none focus:border-cnc-blue transition-colors text-white',
+                                            placeholder: 'ornek@email.com'
+                                        })
+                                    ),
+                                    h('div', null,
+                                        h('label', { htmlFor: 'phone', className: 'block text-sm font-medium mb-2' }, 'Telefon'),
+                                        h('input', {
+                                            type: 'tel',
+                                            id: 'phone',
+                                            name: 'phone',
+                                            value: formData.phone,
+                                            onChange: handleInputChange,
+                                            className: 'w-full px-4 py-3 bg-cnc-dark border border-gray-600 rounded-lg focus:outline-none focus:border-cnc-blue transition-colors text-white',
+                                            placeholder: '+90 5XX XXX XX XX'
+                                        })
+                                    ),
+                                    h('div', null,
+                                        h('label', { htmlFor: 'message', className: 'block text-sm font-medium mb-2' }, 'Mesajınız *'),
+                                        h('textarea', {
+                                            id: 'message',
+                                            name: 'message',
+                                            value: formData.message,
+                                            onChange: handleInputChange,
+                                            required: true,
+                                            rows: 4,
+                                            className: 'w-full px-4 py-3 bg-cnc-dark border border-gray-600 rounded-lg focus:outline-none focus:border-cnc-blue transition-colors resize-none text-white',
+                                            placeholder: 'Projeniz hakkında detaylı bilgi verin...'
+                                        })
+                                    ),
+                                    h('button', {
+                                        type: 'submit',
+                                        className: 'w-full px-8 py-4 bg-gradient-to-r from-cnc-blue to-blue-600 rounded-lg font-semibold hover:shadow-lg hover:shadow-cnc-blue/50 transition-all duration-300 flex items-center justify-center gap-2'
+                                    },
+                                        'Gönder',
+                                        h('i', { 'data-lucide': 'arrow-right', className: 'w-5 h-5' })
+                                    ),
+                                    formStatus && h('div', { className: 'p-4 bg-green-500/20 border border-green-500 rounded-lg text-green-400 text-center' }, formStatus)
+                                )
+                            ),
+                            // Contact Info
+                            h('div', { className: 'space-y-8' },
+                                h('div', { className: 'glass-effect rounded-xl p-8' },
+                                    h('h3', { className: 'text-2xl font-bold mb-6' }, 'İletişim Bilgileri'),
+                                    h('div', { className: 'space-y-6' },
+                                        h('div', { className: 'flex items-start gap-4' },
+                                            h('div', { className: 'p-3 bg-cnc-blue/20 rounded-lg' },
+                                                h('i', { 'data-lucide': 'phone', className: 'w-6 h-6 text-cnc-blue' })
+                                            ),
+                                            h('div', null,
+                                                h('div', { className: 'font-semibold mb-1' }, 'Telefon'),
+                                                h('div', { className: 'text-gray-400' }, '+90 (312) 555 0123'),
+                                                h('div', { className: 'text-gray-400' }, '+90 (312) 555 0124')
+                                            )
+                                        ),
+                                        h('div', { className: 'flex items-start gap-4' },
+                                            h('div', { className: 'p-3 bg-cnc-orange/20 rounded-lg' },
+                                                h('i', { 'data-lucide': 'mail', className: 'w-6 h-6 text-cnc-orange' })
+                                            ),
+                                            h('div', null,
+                                                h('div', { className: 'font-semibold mb-1' }, 'E-posta'),
+                                                h('div', { className: 'text-gray-400' }, 'info@cncpro.com.tr'),
+                                                h('div', { className: 'text-gray-400' }, 'satis@cncpro.com.tr')
+                                            )
+                                        ),
+                                        h('div', { className: 'flex items-start gap-4' },
+                                            h('div', { className: 'p-3 bg-cnc-blue/20 rounded-lg' },
+                                                h('i', { 'data-lucide': 'map-pin', className: 'w-6 h-6 text-cnc-blue' })
+                                            ),
+                                            h('div', null,
+                                                h('div', { className: 'font-semibold mb-1' }, 'Adres'),
+                                                h('div', { className: 'text-gray-400' },
+                                                    'Organize Sanayi Bölgesi',
+                                                    h('br'),
+                                                    '5. Cadde No: 42',
+                                                    h('br'),
+                                                    'Ostim / Ankara'
+                                                )
+                                            )
+                                        )
+                                    )
+                                ),
+                                h('div', { className: 'glass-effect rounded-xl p-8' },
+                                    h('h3', { className: 'text-2xl font-bold mb-4' }, 'Çalışma Saatleri'),
+                                    h('div', { className: 'space-y-3 text-gray-400' },
+                                        h('div', { className: 'flex justify-between' },
+                                            h('span', null, 'Pazartesi - Cuma:'),
+                                            h('span', { className: 'font-semibold text-gray-200' }, '08:00 - 18:00')
+                                        ),
+                                        h('div', { className: 'flex justify-between' },
+                                            h('span', null, 'Cumartesi:'),
+                                            h('span', { className: 'font-semibold text-gray-200' }, '09:00 - 15:00')
+                                        ),
+                                        h('div', { className: 'flex justify-between' },
+                                            h('span', null, 'Pazar:'),
+                                            h('span', { className: 'font-semibold text-cnc-orange' }, 'Kapalı')
+                                        ),
+                                        h('div', { className: 'mt-4 pt-4 border-t border-gray-600' },
+                                            h('span', { className: 'text-cnc-blue font-semibold' }, 'Üretim: 7/24 Aktif')
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    )
+                ),
+
+                // Footer
+                h('footer', { className: 'bg-cnc-dark border-t border-gray-800 py-12' },
+                    h('div', { className: 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8' },
+                        h('div', { className: 'grid md:grid-cols-4 gap-8 mb-8' },
+                            h('div', null,
+                                h('div', { className: 'flex items-center space-x-2 mb-4' },
+                                    h('i', { 'data-lucide': 'settings', className: 'w-8 h-8 text-cnc-blue' }),
+                                    h('span', { className: 'text-2xl font-bold' },
+                                        'CNC',
+                                        h('span', { className: 'text-cnc-blue' }, 'PRO')
+                                    )
+                                ),
+                                h('p', { className: 'text-gray-400 text-sm' },
+                                    'Hassasiyet ve kalitede öncü CNC imalat çözümleri'
+                                )
+                            ),
+                            h('div', null,
+                                h('h4', { className: 'font-bold mb-4' }, 'Hızlı Linkler'),
+                                h('div', { className: 'space-y-2 text-gray-400 text-sm' },
+                                    ...['hakkimizda', 'hizmetler', 'teknoloji', 'projeler'].map(item =>
+                                        h('button', {
+                                            key: item,
+                                            onClick: () => scrollToSection(item),
+                                            className: 'block hover:text-cnc-blue transition-colors'
+                                        }, item === 'hakkimizda' ? 'Hakkımızda' :
+                                           item === 'hizmetler' ? 'Hizmetler' :
+                                           item === 'teknoloji' ? 'Teknoloji' : 'Projeler')
+                                    )
+                                )
+                            ),
+                            h('div', null,
+                                h('h4', { className: 'font-bold mb-4' }, 'Hizmetlerimiz'),
+                                h('div', { className: 'space-y-2 text-gray-400 text-sm' },
+                                    h('div', null, 'CNC Torna'),
+                                    h('div', null, 'CNC Freze'),
+                                    h('div', null, 'Lazer Kesim'),
+                                    h('div', null, 'Kalıp İmalatı')
+                                )
+                            ),
+                            h('div', null,
+                                h('h4', { className: 'font-bold mb-4' }, 'İletişim'),
+                                h('div', { className: 'space-y-2 text-gray-400 text-sm' },
+                                    h('div', null, '+90 (312) 555 0123'),
+                                    h('div', null, 'info@cncpro.com.tr'),
+                                    h('div', null, 'Ostim / Ankara')
+                                )
+                            )
+                        ),
+                        h('div', { className: 'border-t border-gray-800 pt-8 text-center text-gray-400 text-sm' },
+                            h('p', null, '© 2024 CNCPRO. Tüm hakları saklıdır. | ISO 9001:2015 Belgeli')
+                        )
+                    )
+                )
+            );
+        }
+
+        // Render app
+        const root = ReactDOM.createRoot(document.getElementById('app'));
+        root.render(React.createElement(App));
+    </script>
+
+    <!-- React & ReactDOM from CDN -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+</body>
+</html>
