@@ -118,7 +118,7 @@ const translations = {
     contact: {
       title1: 'Bize',
       title2: 'Ulaşın',
-      subtitle: 'Projeleriniz için teklif almak veya detaylı bilgi için bizimle iletişime geçin',
+      subtitle: 'Projelerinize teklif veya detaylı bilgi almak için bizimle iletişime geçin',
       formTitle: 'Mesaj Gönderin',
       nameLabel: 'Ad Soyad',
       emailLabel: 'E-posta',
@@ -459,7 +459,7 @@ function App() {
       </section>
 
       {/* About Section */}
-      <section id="hakkimizda" className="relative py-20 bg-cnc-gray overflow-hidden">
+      <section id="hakkimizda" className="relative py-32 bg-cnc-gray overflow-hidden scroll-mt-20">
         <div className="absolute inset-0 opacity-5 bg-[url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1920&q=80')] bg-cover bg-center mix-blend-overlay"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
           <div className="text-center max-w-4xl mx-auto">
@@ -636,7 +636,7 @@ function App() {
           </div>
 
           <div className="border-t border-gray-800 pt-8 text-center text-gray-400 text-sm">
-            <p>&copy; 2024 ZETA CNC. {t.footer.copyright}</p>
+            <p>&copy; ZETA CNC. {t.footer.copyright}</p>
           </div>
         </div>
       </footer>
