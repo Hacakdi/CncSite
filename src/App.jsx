@@ -12,9 +12,7 @@ const translations = {
       home: 'Ana Sayfa',
       about: 'Hakkımızda',
       services: 'Hizmetler',
-      technology: 'Teknoloji',
       gallery: 'Galeri',
-      projects: 'Projeler',
       contact: 'İletişim'
     },
     hero: {
@@ -81,25 +79,9 @@ const translations = {
       ],
       details: 'Detaylar'
     },
-    technology: {
-      title1: 'Makine',
-      title2: 'Parkurumuz',
-      subtitle: 'Son teknoloji CNC makinelerimiz ve ölçüm cihazlarımızla en hassas işleme garantisi',
-      items: [
-        { name: 'CNC Torna Merkezi', specs: '5 Eksen, Ø500mm' },
-        { name: 'CNC Dik İşleme Merkezi', specs: '1000x600x500mm' },
-        { name: 'Fiber Lazer Kesim', specs: '6kW, 3000x1500mm' },
-        { name: 'EDM Tel Erozyon', specs: '±0.002mm Hassasiyet' },
-        { name: 'CMM Ölçüm Cihazı', specs: 'Zeiss Coordinate 700x1000mm' },
-        { name: 'CNC Taşlama', specs: 'Yüzey Taşlama Ra 0.2' }
-      ],
-      area: 'kapalı üretim alanı',
-      continuous: 'kesintisiz üretim'
-    },
     gallery: {
-      title1: 'Üretim',
-      title2: 'Galerimiz',
-      subtitle: 'Modern CNC tezgahlarımız ve üretim tesislerimizden görüntüler'
+      title: 'Galeri',
+      subtitle: 'Üretim tesislerimiz ve çalışmalarımızdan görüntüler'
     },
     projects: {
       title1: 'Referans',
@@ -130,7 +112,7 @@ const translations = {
       messagePlaceholder: 'Projeniz hakkında detaylı bilgi verin...',
       send: 'Gönder',
       successMessage: 'Mesajınız gönderildi! En kısa sürede size dönüş yapacağız.',
-      contactInfo: 'Detaylı bilgi için info@zetacnc.com.tr adresine mail gönderebilirsiniz.'
+      contactInfo: 'Detaylı bilgi için info@zetacnc.com adresine mail gönderebilirsiniz.'
     },
     footer: {
       tagline: 'Hassasiyet ve kalitede öncü CNC imalat çözümleri',
@@ -145,9 +127,7 @@ const translations = {
       home: 'Home',
       about: 'About Us',
       services: 'Services',
-      technology: 'Technology',
       gallery: 'Gallery',
-      projects: 'Projects',
       contact: 'Contact'
     },
     hero: {
@@ -214,25 +194,9 @@ const translations = {
       ],
       details: 'Details'
     },
-    technology: {
-      title1: 'Our Machine',
-      title2: 'Park',
-      subtitle: 'Most precise machining guarantee with our state-of-the-art CNC machines and measuring devices',
-      items: [
-        { name: 'CNC Turning Center', specs: '5 Axis, Ø500mm' },
-        { name: 'CNC Vertical Machining Center', specs: '1000x600x500mm' },
-        { name: 'Fiber Laser Cutting', specs: '6kW, 3000x1500mm' },
-        { name: 'EDM Wire Erosion', specs: '±0.002mm Precision' },
-        { name: 'CMM Measuring Device', specs: 'Zeiss Coordinate 700x1000mm' },
-        { name: 'CNC Grinding', specs: 'Surface Grinding Ra 0.2' }
-      ],
-      area: 'indoor production area',
-      continuous: 'continuous production'
-    },
     gallery: {
-      title1: 'Production',
-      title2: 'Gallery',
-      subtitle: 'Images from our modern CNC machines and production facilities'
+      title: 'Gallery',
+      subtitle: 'Images from our production facilities and work'
     },
     projects: {
       title1: 'Our Reference',
@@ -266,7 +230,7 @@ const translations = {
       infoTitle: 'Contact Information',
       phone: 'Phone',
       email: 'Email',
-      contactInfo: 'For detailed information, you can send an email to info@zetacnc.com.tr'
+      contactInfo: 'For detailed information, you can send an email to info@zetacnc.com'
     },
     footer: {
       tagline: 'Leading CNC manufacturing solutions in precision and quality',
@@ -282,6 +246,29 @@ function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [language, setLanguage] = useState('tr');
+  const [lightboxImage, setLightboxImage] = useState(null);
+
+  const galleryImages = [
+    { id: 1, src: '/gallery/1.jpg', title: 'CNC İşleme Merkezi' },
+    { id: 2, src: '/gallery/2.jpg', title: 'AWEA BM-1600 CNC Freze' },
+    { id: 3, src: '/gallery/3.jpg', title: 'Fikstür ve Aparatlar' },
+    { id: 4, src: '/gallery/4.jpg', title: 'Kontrol Ünitesi' },
+    { id: 5, src: '/gallery/5.jpg', title: 'Test Aparatı' },
+    { id: 6, src: '/gallery/6.jpg', title: 'Konveyör Sistemi' },
+    { id: 7, src: '/gallery/7.jpg', title: 'MCV-1 CNC Freze' },
+    { id: 8, src: '/gallery/8.jpg', title: 'TLV-850 CNC Freze' },
+    { id: 9, src: '/gallery/9.jpg', title: 'Pres Makineleri' },
+    { id: 10, src: '/gallery/10.jpg', title: 'Otomasyon İstasyonu' },
+    { id: 11, src: '/gallery/11.jpg', title: 'Montaj İstasyonu' },
+    { id: 12, src: '/gallery/12.jpg', title: 'Robot Hücresi' },
+    { id: 13, src: '/gallery/13.jpg', title: 'Torna Tezgahı' },
+    { id: 14, src: '/gallery/14.jpg', title: 'Matkap Tezgahı' },
+    { id: 15, src: '/gallery/15.jpg', title: 'Freze Tezgahı' },
+    { id: 16, src: '/gallery/16.jpg', title: 'Üretim Alanı' },
+    { id: 17, src: '/gallery/17.jpg', title: 'Atölye Genel' },
+    { id: 18, src: '/gallery/18.jpg', title: 'Fabrika Genel' },
+    { id: 19, src: '/gallery/19.jpg', title: 'Kaynak Atölyesi' }
+  ];
 
   const t = translations[language];
 
@@ -322,8 +309,8 @@ function App() {
             <div className="hidden md:flex items-center space-x-8">
               {['anasayfa', 'hakkimizda', 'hizmetler', 'galeri', 'iletisim'].map((item, idx) => {
                 const labels = language === 'tr'
-                  ? ['Ana Sayfa', 'Hakkımızda', 'Hizmetler', 'Teknoloji', 'İletişim']
-                  : ['Home', 'About Us', 'Services', 'Technology', 'Contact'];
+                  ? ['Ana Sayfa', 'Hakkımızda', 'Hizmetler', 'Galeri', 'İletişim']
+                  : ['Home', 'About Us', 'Services', 'Gallery', 'Contact'];
                 return (
                   <button
                     key={item}
@@ -378,8 +365,8 @@ function App() {
             <div className="px-4 py-4 space-y-3">
               {['anasayfa', 'hakkimizda', 'hizmetler', 'galeri', 'iletisim'].map((item, idx) => {
                 const labels = language === 'tr'
-                  ? ['Ana Sayfa', 'Hakkımızda', 'Hizmetler', 'Teknoloji', 'İletişim']
-                  : ['Home', 'About Us', 'Services', 'Technology', 'Contact'];
+                  ? ['Ana Sayfa', 'Hakkımızda', 'Hizmetler', 'Galeri', 'İletişim']
+                  : ['Home', 'About Us', 'Services', 'Gallery', 'Contact'];
                 return (
                   <button
                     key={item}
@@ -526,53 +513,58 @@ function App() {
       </section>
 
       {/* Gallery Section */}
-      <section id="galeri" className="relative py-20 bg-cnc-dark overflow-hidden">
-        <div className="absolute inset-0 opacity-5 bg-[url('https://images.unsplash.com/photo-1530124566582-a618bc2615dc?w=1920&q=80')] bg-cover bg-center mix-blend-overlay"></div>
+      <section id="galeri" className="relative py-20 bg-cnc-gray overflow-hidden">
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              { id: 1, title: { tr: 'CNC Torna Merkezi', en: 'CNC Turning Center' }, category: { tr: 'Torna', en: 'Turning' }, img: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80' },
-              { id: 2, title: { tr: 'CNC Freze Tezgahı', en: 'CNC Milling Machine' }, category: { tr: 'Freze', en: 'Milling' }, img: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=800&q=80' },
-              { id: 3, title: { tr: '5 Eksen İşleme Merkezi', en: '5-Axis Machining Center' }, category: { tr: 'Freze', en: 'Milling' }, img: 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=800&q=80' },
-              { id: 4, title: { tr: 'Fiber Lazer Kesim', en: 'Fiber Laser Cutting' }, category: { tr: 'Lazer', en: 'Laser' }, img: 'https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?w=800&q=80' },
-              { id: 5, title: { tr: 'Üretim Hattı', en: 'Production Line' }, category: { tr: 'Genel', en: 'General' }, img: 'https://images.unsplash.com/photo-1581094271901-8022df4466f9?w=800&q=80' },
-              { id: 6, title: { tr: 'Kalite Kontrol', en: 'Quality Control' }, category: { tr: 'Ölçüm', en: 'Measurement' }, img: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&q=80' },
-              { id: 7, title: { tr: 'CNC Torna İşleme', en: 'CNC Turning Process' }, category: { tr: 'Torna', en: 'Turning' }, img: 'https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=800&q=80' },
-              { id: 8, title: { tr: 'Hassas İşleme', en: 'Precision Machining' }, category: { tr: 'Freze', en: 'Milling' }, img: 'https://images.unsplash.com/photo-1530124566582-a618bc2615dc?w=800&q=80' },
-              { id: 9, title: { tr: 'EDM Tel Erozyon', en: 'EDM Wire Erosion' }, category: { tr: 'Erozyon', en: 'Erosion' }, img: 'https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?w=800&q=80' },
-              { id: 10, title: { tr: 'Üretim Tesisi', en: 'Production Facility' }, category: { tr: 'Genel', en: 'General' }, img: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80' },
-              { id: 11, title: { tr: 'Makine Parkuru', en: 'Machine Park' }, category: { tr: 'Genel', en: 'General' }, img: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=800&q=80' },
-              { id: 12, title: { tr: 'CNC Programlama', en: 'CNC Programming' }, category: { tr: 'Kontrol', en: 'Control' }, img: 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=800&q=80' },
-              { id: 13, title: { tr: 'Parça İşleme', en: 'Part Machining' }, category: { tr: 'Torna', en: 'Turning' }, img: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&q=80' },
-              { id: 14, title: { tr: 'Ölçüm ve Test', en: 'Measurement & Testing' }, category: { tr: 'Ölçüm', en: 'Measurement' }, img: 'https://images.unsplash.com/photo-1581093577421-f561a654a353?w=800&q=80' },
-              { id: 15, title: { tr: 'Seri Üretim', en: 'Serial Production' }, category: { tr: 'Genel', en: 'General' }, img: 'https://images.unsplash.com/photo-1581092335397-9583eb92d232?w=800&q=80' },
-              { id: 16, title: { tr: 'Kalıp İmalatı', en: 'Mold Manufacturing' }, category: { tr: 'Kalıp', en: 'Mold' }, img: 'https://images.unsplash.com/photo-1581093450021-4a7360e9a6b5?w=800&q=80' }
-            ].map((item) => (
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">
+              <span className="text-cnc-blue">{t.gallery.title}</span>
+            </h2>
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+              {t.gallery.subtitle}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {galleryImages.map((image) => (
               <div
-                key={item.id}
-                className="relative glass-effect rounded-xl overflow-hidden group transition-transform duration-300 hover:scale-105"
+                key={image.id}
+                className="relative aspect-square overflow-hidden rounded-lg cursor-pointer group"
+                onClick={() => setLightboxImage(image.src)}
               >
-                <div className="aspect-video relative overflow-hidden bg-cnc-gray">
-                  <img
-                    src={item.img}
-                    alt={item.title[language]}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-cnc-dark via-transparent to-transparent opacity-60"></div>
-                </div>
-                <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
-                  <div className="text-xs text-cnc-orange font-semibold mb-1">{item.category[language]}</div>
-                  <h3 className="text-lg font-bold">{item.title[language]}</h3>
-                </div>
+                <img
+                  src={image.src}
+                  alt={image.title}
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                />
               </div>
             ))}
           </div>
         </div>
       </section>
 
+      {/* Lightbox Modal */}
+      {lightboxImage && (
+        <div
+          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
+          onClick={() => setLightboxImage(null)}
+        >
+          <button
+            className="absolute top-4 right-4 text-white text-4xl hover:text-gray-300"
+            onClick={() => setLightboxImage(null)}
+          >
+            <X className="w-8 h-8" />
+          </button>
+          <img
+            src={lightboxImage}
+            alt="Büyük görüntü"
+            className="max-w-full max-h-full object-contain"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
+
       {/* Contact Section */}
-      <section id="iletisim" className="relative py-20 bg-cnc-gray overflow-hidden">
+      <section id="iletisim" className="relative py-20 bg-cnc-dark overflow-hidden">
         <div className="absolute inset-0 opacity-5 bg-[url('https://images.unsplash.com/photo-1581094271901-8022df4466f9?w=1920&q=80')] bg-cover bg-center mix-blend-overlay"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
           <div className="text-center mb-16">
@@ -587,8 +579,10 @@ function App() {
           <div className="max-w-2xl mx-auto">
             {/* Contact Info */}
             <div className="text-center">
-              <p className="text-gray-300 text-2xl font-bold">
-                {t.contact.contactInfo}
+              <p className="text-gray-300 text-xl">
+                {language === 'tr' ? 'Detaylı bilgi için ' : 'For detailed information, you can send an email to '}
+                <span className="font-bold text-cnc-blue">info@zetacnc.com</span>
+                {language === 'tr' ? ' adresine mail gönderebilirsiniz.' : ''}
               </p>
             </div>
           </div>
@@ -614,7 +608,8 @@ function App() {
               <div className="space-y-2 text-gray-400 text-sm">
                 <button onClick={() => scrollToSection('hakkimizda')} className="block hover:text-cnc-blue transition-colors">{t.nav.about}</button>
                 <button onClick={() => scrollToSection('hizmetler')} className="block hover:text-cnc-blue transition-colors">{t.nav.services}</button>
-                <button onClick={() => scrollToSection('iletişim')} className="block hover:text-cnc-blue transition-colors">{t.nav.gallery}</button>
+                <button onClick={() => scrollToSection('galeri')} className="block hover:text-cnc-blue transition-colors">{t.nav.gallery}</button>
+                <button onClick={() => scrollToSection('iletisim')} className="block hover:text-cnc-blue transition-colors">{t.nav.contact}</button>
               </div>
             </div>
 
@@ -630,7 +625,7 @@ function App() {
             <div>
               <h4 className="font-bold mb-4">{t.footer.contactUs}</h4>
               <div className="space-y-2 text-gray-400 text-sm">
-                <div>info@zetacnc.com.tr</div>
+                <div>info@zetacnc.com</div>
               </div>
             </div>
           </div>
